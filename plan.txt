@@ -1,0 +1,10 @@
+main menu
+
+reading list menu / 
+
+if book menu
+
+tambah data buku / lihat list buku / hapus buku dari list
+
+tambah data: tambah data
+lihat list buku: 
