@@ -21,3 +21,8 @@ def fetch_item():
     cur = db.cursor()
     cur.execute("SELECT * FROM tbl_book")
     return cur.fetchall()
+
+def fetch_item_by_id(id):
+    cur = db.cursor()
+    cur.execute("SELECT * FROM tbl_book WHERE id=%s", (id,))
+    return cur.fetchone()

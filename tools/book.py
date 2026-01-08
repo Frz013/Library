@@ -23,6 +23,7 @@ def start():
 
 
 def add_data():
+    os.system('cls')
     print("Tolong masukan data yang diminta: ")
     kode_buku = ''.join(random.choice(string.ascii_letters.upper()) for i in range(6))
     judul_buku = str(input("Masukan Judul Buku: "))
@@ -36,22 +37,36 @@ def add_data():
 
 def read_data():
     books = db.fetch_item()
+    os.system('cls')
     for book in books:
         id_buku = book[0]
         kode_buku = book[1]
         judul_buku = book[2]
-        penulis_buku = book[3]
-        tahun_terbit_buku = book[4]
-        sinopsis_buku = book[5]
-        tgl_update = book[6]
+        print(f'''
+ID: {id_buku} | KODE: {kode_buku} | JUDUL: {judul_buku}
+''')  
+    opsi = int(input("Pilih opsi berikut:\n1. Detail buku\n2. Kembali ke menu\nPilih opsi: "))
+    if opsi == 1:
+        id_detail = int(input("Pilih ID buku yang ingin dilihat detailnya: "))
+        os.system('cls')
+        detail = db.fetch_item_by_id(id_detail)
+        id_buku = detail[0]
+        kode_buku = detail[1]
+        judul_buku = detail[2]
+        penulis_buku = detail[3]
+        tahun_terbit_buku = detail[4]
+        sinopsis_buku = detail[5]
+        tgl_update = detail[6]
 
         print(f'''
-ID: {id_buku}
-KODE: {kode_buku}
-JUDUL: {judul_buku}
-PENULIS: {penulis_buku}
-TAHUN TERBIT: {tahun_terbit_buku}
-SINOPSIS: {sinopsis_buku}
-DATA DI UPDATE PADA:{tgl_update}
+ID                       : {id_buku}
+KODE BUKU                : {kode_buku}
+JUDUL                    : {judul_buku}
+PENULIS                  : {penulis_buku}
+TAHUN TERBIT             : {tahun_terbit_buku}
+SINOPSIS                 : {sinopsis_buku}
+UPDATE DATA TERAKHIR PADA: {tgl_update}
 ''')
-    str(input("\nBack to menu: (press enter)"))
+        input("tekan enter untuk kembali")
+    elif opsi == 2:
+        pass

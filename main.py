@@ -1,10 +1,9 @@
-
 from tools import book
 import os
 def main():
 
     while True:
-        # os.system('cls')
+        os.system('cls')
         print("========== MENU ==========")
         opsi = int(input(f"Pilih opsi berikut:\n1. Reading List\n2. Watch List\n3. Close Program\nPilih opsi: "))
         if opsi == 1:
