@@ -1,5 +1,6 @@
 from services import db
 from datetime import datetime as dt
+from services.db import create_kode_buku
 import random
 import string
 import os
@@ -15,7 +16,7 @@ def start():
         elif opsi == 2:
             add_data()
         elif opsi == 3:
-            pass
+            update_data()
         elif opsi == 4:
             pass
         elif opsi == 5:
@@ -25,7 +26,8 @@ def start():
 def add_data():
     os.system('cls')
     print("Tolong masukan data yang diminta: ")
-    kode_buku = ''.join(random.choice(string.ascii_letters.upper()) for i in range(6))
+
+    kode_buku = create_kode_buku()
     judul_buku = str(input("Masukan Judul Buku: "))
     penulis_buku = str(input("Masukan Nama Penulis Buku: "))
     tahun_terbit_buku = str(input("Masukan Tahun Terbit Buku: "))
@@ -39,12 +41,15 @@ def read_data():
     books = db.fetch_item()
     os.system('cls')
     for book in books:
+        nomor_list = 1
         id_buku = book[0]
         kode_buku = book[1]
         judul_buku = book[2]
         print(f'''
-ID: {id_buku} | KODE: {kode_buku} | JUDUL: {judul_buku}
+NO.: {nomor_list} | ID: {id_buku} | KODE: {kode_buku} | JUDUL: {judul_buku}
 ''')  
+        nomor_list += 1
+
     opsi = int(input("Pilih opsi berikut:\n1. Detail buku\n2. Kembali ke menu\nPilih opsi: "))
     if opsi == 1:
         id_detail = int(input("Pilih ID buku yang ingin dilihat detailnya: "))
@@ -70,3 +75,13 @@ UPDATE DATA TERAKHIR PADA: {tgl_update}
         input("tekan enter untuk kembali")
     elif opsi == 2:
         pass
+
+def update_data():
+    os.system("cls")
+    kode_buku = str(input("masukan kode buku yang ingin di update (kembali ke menu untuk melihat kode buku): "))
+    if kode_buku == "back":
+        pass
+
+    opsi_update = int(input("pilih opsi yang ingin diupdate:\n1. judul buku\n2. penulis buku\n3. tahun terbit buku\n4. sinopsis buku\n pilih opsi: "))
+    db.update_item(opsi_update, kode_buku)
+
