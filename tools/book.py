@@ -26,6 +26,7 @@ def start():
 def add_data():
     os.system('cls')
     print("Tolong masukan data yang diminta: ")
+    
 
     kode_buku = create_kode_buku()
     judul_buku = str(input("Masukan Judul Buku: "))

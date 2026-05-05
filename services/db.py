@@ -9,18 +9,20 @@ db = mysql.connector.connect(
     password = '',
     database = 'library'
 )
-def create_kode_buku(kode_buku_cek):
+def create_kode_buku():
     cur = db.cursor()
-    is_kode_buku_exists ="SELECT EXISTS(SELECT 1 FROM tbl_book WHERE kode_buku = %s)"
-    cur.execute(is_kode_buku_exists, (kode_buku_cek))
-
-    result = cur.fetchone()
+    
     while True:
+        kode_buku = ''.join(random.choice(string.ascii_letters.upper()) for i in range(6))
+
+        is_kode_buku_exists ="SELECT EXISTS(SELECT 1 FROM tbl_book WHERE kode_buku = %s)"
+        cur.execute(is_kode_buku_exists, (kode_buku,))
+
+        result = cur.fetchone()
+        
         if result[0] == 0:
-            kode_buku = ''.join(random.choice(string.ascii_letters.upper()) for i in range(6))
+            
             return kode_buku
-        elif result[0] == 1:
-            continue
 
 def insert_item(kode_buku, judul_buku, penulis_buku, tahun_terbit_buku, sinopsis_buku, tgl_update):
     cur = db.cursor()
@@ -53,18 +55,18 @@ def update_item(opsi_update, kode_buku):
     elif result[0] == 1:
         
         if opsi_update == 1:
-            print("Update Data Judul")
-            data_baru = str(input("Masukan judul yang baru: "))
-            update_data = "UPDATE tbl_book SET judul_buku =%s WHERE kode_buku =%s"
-            input_data_baru = (data_baru, kode_buku)
-            cur.execute(update_data, input_data_baru)
-            db.commit()
-            print("judul berhasil di update")
-
-
+            what_update = ["Judul Buku", "judul_buku"]
         elif opsi_update == 2:
-            return
+            what_update = ["Penulis Buku", "penulis_buku"]
         elif opsi_update == 3:
-            return
+            what_update = ["Tahun Terbit Buku", "tahun_terbit_buku"]
         elif opsi_update == 4:
-            return
+            what_update = ["Sinopsis Buku", "sinopsis_buku"]
+        
+    print(f"Update Data {what_update[0]}")
+    data_baru = str(input(f"Masukan {what_update[0]} yang baru: "))
+    update_data = f"UPDATE tbl_book SET {what_update[1]} =%s WHERE kode_buku =%s"
+    input_data_baru = (data_baru, kode_buku)
+    cur.execute(update_data, input_data_baru)
+    db.commit()
+    print(f"{what_update[0]} berhasil di update")
