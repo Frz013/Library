@@ -70,3 +70,17 @@ def update_item(opsi_update, kode_buku):
     cur.execute(update_data, input_data_baru)
     db.commit()
     print(f"{what_update[0]} berhasil di update")
+
+def delete_data(kode_buku):
+    cur = db.cursor()
+    is_kode_buku_exists ="SELECT EXISTS(SELECT 1 FROM tbl_book WHERE kode_buku = %s)"
+    cur.execute(is_kode_buku_exists, (kode_buku,))
+
+    result = cur.fetchone()
+    if result[0] == 0:
+        print("kode buku tidak ditemukan")
+    elif result[0] == 1:
+        delete_data_buku = "DELETE FROM tbl_book WHERE kode_buku = %s"
+        cur.execute(delete_data_buku,(kode_buku,))
+        db.commit()
+        print("Data Buku Berhasil Dihapus")

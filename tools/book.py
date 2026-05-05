@@ -8,7 +8,6 @@ import main
 
 def start():
     while True:
-        os.system('cls')
         print("========== READING LIST MENU ==========")
         opsi = int(input(f"Pilih opsi berikut:\n1. Read data/List\n2. Add data\n3. Update data\n4. Remove data\n5. Kembali ke menu utama\nPilih opsi: "))
         if opsi == 1:
@@ -18,7 +17,7 @@ def start():
         elif opsi == 3:
             update_data()
         elif opsi == 4:
-            pass
+            delete_data()
         elif opsi == 5:
             break
 
@@ -85,4 +84,9 @@ def update_data():
 
     opsi_update = int(input("pilih opsi yang ingin diupdate:\n1. judul buku\n2. penulis buku\n3. tahun terbit buku\n4. sinopsis buku\n pilih opsi: "))
     db.update_item(opsi_update, kode_buku)
+
+def delete_data():
+    os.system("cls")
+    kode_buku = str(input("masukan kode buku yang ingin di update (kembali ke menu untuk melihat kode buku): "))
+    db.delete_data(kode_buku)
 
