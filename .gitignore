@@ -2,3 +2,4 @@ tools\desktop.ini
 desktop.ini
 __pycache__
 .venv
+services\__pycache__
