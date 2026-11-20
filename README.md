@@ -98,8 +98,3 @@ Saat dijalankan, aplikasi langsung membuka menu utama:
    - `5. Kembali ke menu utama`: kembali ke menu awal.
 2. `Watch List`: belum aktif, masih dalam pengembangan.
 3. `Close Program`: menutup aplikasi.
-
-## Catatan
-
-- Pembersihan layar terminal memakai `os.system('cls')`, jadi aplikasi berjalan baik di Windows. Di Linux atau macOS, ganti perintah itu dengan `clear`.
-- Rencana pengembangan: mengimplementasikan Watch List, memindahkan konfigurasi database ke file `.env`, dan mengeluarkan `.venv/`, `__pycache__/`, serta `desktop.ini` dari tracking Git lewat `.gitignore`.
